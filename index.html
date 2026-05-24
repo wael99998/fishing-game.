@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لعبة صيد السمك والربح</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to bottom, #0f2027, #203a43, #2c5364);
+            color: white;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-align: center;
+            overflow: hidden;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+        #game-container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+        }
+        #header {
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.6);
+            width: 100%;
+            box-sizing: border-box;
+            backdrop-filter: blur(5px);
+            border-bottom: 2px solid #00b4d8;
+        }
+        #score-board {
+            font-size: 26px;
+            font-weight: bold;
+            color: #ffd700;
+            margin-top: 5px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+        }
+        #sea {
+            position: relative;
+            width: 100%;
+            flex-grow: 1;
+            background: radial-gradient(circle, rgba(0,180,216,0.4) 0%, rgba(3,4,94,0.7) 100%);
+            overflow: hidden;
+            cursor: pointer;
+        }
+        .fish {
+            position: absolute;
+            font-size: 55px;
+            user-select: none;
+            cursor: pointer;
+            transform: scaleX(1);
+            transition: top 1.5s linear, left 1.5s linear;
+        }
+        #hook {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            font-size: 45px;
+            transform: translateX(-50%);
+            transition: top 0.3s ease-out;
+            pointer-events: none;
+            z-index: 10;
+        }
+        #footer {
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            width: 100%;
+            box-sizing: border-box;
+            border-top: 2px solid #00b4d8;
+        }
+        .btn {
+            background: linear-gradient(45deg, #2ecc71, #27ae60);
+            border: none;
+            color: white;
+            padding: 12px 35px;
+            font-size: 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: bold;
+            box-shadow: 0 5px 15px rgba(46, 204, 113, 0.4);
+            transition: transform 0.1s ease;
+        }
+        .btn:active {
+            transform: scale(0.95);
+        }
+    </style>
+</head>
+<body>
+
+<div id="game-container">
+    <div id="header">
+        <h2 style="margin:0; font-size: 22px;">🎣 رحلة صيد الحوت الأكبر</h2>
+        <div id="score-board">الرصيد: <span id="score">0</span> 🪙</div>
+    </div>
+
+    <div id="sea" onclick="dropHook(event)">
+        <div id="hook">🪝</div>
+    </div>
+
+    <div id="footer">
+        <button class="btn" onclick="saveData()">حفظ وإرسال الأرباح 💰</button>
+    </div>
+</div>
+
+<script>
+    let score = 0;
+    const sea = document.getElementById('sea');
+    const hook = document.getElementById('hook');
+    const scoreDisplay = document.getElementById('score');
+    const fishContainer = sea;
+
+    const fishTypes = ['🐟', '🐠', '🐡', '🦈', '🐙'];
+
+    function createFish() {
+        const fish = document.createElement('div');
+        fish.className = 'fish';
+        fish.innerText = fishTypes[Math.floor(Math.random() * fishTypes.length)];
+        
+        // إحداثيات بدائية عشوائية
+        let posX = Math.random() * (window.innerWidth - 60);
+        let posY = Math.random() * (sea.clientHeight - 60);
+        
+        fish.style.left = posX + 'px';
+        fish.style.top = posY + 'px';
+
+        // وظيفة الاصطياد عند الضغط المباشر
+        fish.addEventListener('click', (e) => {
+            e.stopPropagation();
+            score += 10;
+            scoreDisplay.innerText = score;
+            fish.innerText = '✨';
+            setTimeout(() => {
+                fish.remove();
+                createFish();
+            }, 300);
+        });
+
+        fishContainer.appendChild(fish);
+
+        // حلقة حركة السمكة المستمرة بشكل سلس
+        function move() {
+            if (!fish.parentElement) return;
+            const newX = Math.random() * (window.innerWidth - 60);
+            const newY = Math.random() * (sea.clientHeight - 60);
+            
+            // قلب اتجاه السمكة حسب الحركة
+            if (newX > posX) {
+                fish.style.transform = 'scaleX(-1)';
+            } else {
+                fish.style.transform = 'scaleX(1)';
+            }
+            
+            posX = newX;
+            posY = newY;
+            
+            fish.style.left = posX + 'px';
+            fish.style.top = posY + 'px';
+            
+            setTimeout(move, 2000);
+        }
+        
+        setTimeout(move, 100);
+    }
+
+    // حركة الصنارة عند النقر على البحر
+    function dropHook(event) {
+        const rect = sea.getBoundingClientRect();
+        const clickX = event.clientX - rect.left;
+        const clickY = event.clientY - rect.top;
+        
+        hook.style.left = clickX + 'px';
+        hook.style.top = clickY + 'px';
+        
+        // عودة الصنارة التلقائية للأعلى
+        setTimeout(() => {
+            hook.style.top = '0px';
+        }, 350);
+    }
+
+    // إرسال النقاط وتوثيقها في تليجرام
+    function saveData() {
+        if (window.Telegram && window.Telegram.WebApp) {
+            const dataToSend = JSON.stringify({ score: score });
+            window.Telegram.WebApp.sendData(dataToSend);
+        } else {
+            alert(`رائع! رصيدك الحالي هو: ${score} نقطة 🪙\n(أنت تلعب الآن خارج تطبيق تليجرام)`);
+        }
+    }
+
+    // إطلاق 4 أسماك فورية داخل اللعبة عند البداية
+    for (let i = 0; i < 4; i++) {
+        createFish();
+    }
+    
+    // تهيئة واجهة تليجرام المصغرة
+    if (window.Telegram && window.Telegram.WebApp) {
+        window.Telegram.WebApp.ready();
+        window.Telegram.WebApp.expand();
+    }
+</script>
+</body>
+</html>
