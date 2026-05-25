@@ -2,27 +2,40 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <title>Fisher Game</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crypto Fisher</title>
     <style>
-        body { margin: 0; background: #000428; color: white; font-family: sans-serif; overflow: hidden; }
-        .game-container { width: 100vw; height: 100vh; background: linear-gradient(to bottom, #000428, #004e92); display: flex; flex-direction: column; align-items: center; justify-content: center; }
-        .status-bar { width: 90%; display: flex; justify-content: space-between; padding: 15px; background: rgba(255,255,255,0.1); border-radius: 20px; margin-bottom: 20px; }
-        .fisher { font-size: 80px; }
-        .fish { font-size: 50px; cursor: pointer; transition: transform 0.2s; }
-        .fish:active { transform: scale(1.2); }
+        body { margin: 0; background: #001f3f; color: white; font-family: sans-serif; overflow: hidden; }
+        #app { width: 100vw; height: 100vh; background: linear-gradient(to bottom, #001f3f, #0074D9); display: flex; flex-direction: column; }
+        
+        /* الهيدر العلوي */
+        .header { display: flex; justify-content: space-between; padding: 20px; z-index: 10; }
+        .stat { background: rgba(0,0,0,0.3); padding: 10px 20px; border-radius: 20px; border: 1px solid #7FDBFF; }
+        
+        /* منطقة الصيد */
+        .game-zone { flex-grow: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        .fisher-img { font-size: 100px; margin-bottom: 30px; }
+        .fish-container { display: flex; gap: 20px; }
+        .fish { font-size: 50px; }
+        
+        /* الفوتر السفلي */
+        .footer { height: 80px; display: flex; justify-content: space-around; align-items: center; background: #00172d; border-top: 1px solid #0074D9; }
     </style>
 </head>
 <body>
-    <div class="game-container">
-        <div class="status-bar">
-            <span>🪙 الرصيد: 4,000,010</span>
-            <span>⚡ الطاقة: 100/100</span>
+    <div id="app">
+        <div class="header">
+            <div class="stat">🪙 4,000,010</div>
+            <div class="stat">⚡ 100/100</div>
         </div>
-        <div class="fisher">🎣</div>
-        <div style="margin-top: 50px;">
-            <span class="fish" onclick="alert('تم الصيد!')">🐟</span>
-            <span class="fish" onclick="alert('تم الصيد!')">🦈</span>
-            <span class="fish" onclick="alert('تم الصيد!')">🐡</span>
+        <div class="game-zone">
+            <div class="fisher-img">🧑‍🌾</div>
+            <div class="fish-container">
+                <span class="fish">🐟</span><span class="fish">🦈</span><span class="fish">🐡</span>
+            </div>
+        </div>
+        <div class="footer">
+            <div>▶️ اللعب</div><div>📜 المهام</div><div>👥 الإحالة</div><div>🚀 الأيردروب</div>
         </div>
     </div>
 </body>
