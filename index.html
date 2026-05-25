@@ -2,41 +2,27 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Crypto Fisher - Pro Edition</title>
+    <title>Fisher Game</title>
     <style>
-        body { margin: 0; padding: 0; background-color: #050b16; color: #ffffff; font-family: 'Segoe UI', sans-serif; overflow: hidden; }
-        #app { width: 100vw; height: 100vh; display: flex; flex-direction: column; background: radial-gradient(circle at bottom, #0a2e3a, #020111); }
-        
-        /* Header UI */
-        .header { display: flex; justify-content: space-between; padding: 20px; }
-        .stat-card { background: rgba(255,255,255,0.1); padding: 10px 20px; border-radius: 20px; border: 1px solid #00d4ff; font-weight: bold; }
-        
-        /* Main Game Area */
-        .game-area { flex-grow: 1; position: relative; display: flex; justify-content: center; align-items: center; }
-        .fisher-avatar { font-size: 100px; margin-bottom: 50px; }
-        
-        /* Footer Navigation */
-        .nav-bar { height: 80px; background: #0c1524; display: flex; justify-content: space-around; align-items: center; border-top: 1px solid #333; }
-        .nav-item { font-size: 12px; color: #aaa; text-align: center; }
+        body { margin: 0; background: #000428; color: white; font-family: sans-serif; overflow: hidden; }
+        .game-container { width: 100vw; height: 100vh; background: linear-gradient(to bottom, #000428, #004e92); display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        .status-bar { width: 90%; display: flex; justify-content: space-between; padding: 15px; background: rgba(255,255,255,0.1); border-radius: 20px; margin-bottom: 20px; }
+        .fisher { font-size: 80px; }
+        .fish { font-size: 50px; cursor: pointer; transition: transform 0.2s; }
+        .fish:active { transform: scale(1.2); }
     </style>
 </head>
 <body>
-    <div id="app">
-        <div class="header">
-            <div class="stat-card">🪙 الرصيد: 4,000,010</div>
-            <div class="stat-card">⚡ الطاقة: 100/100</div>
+    <div class="game-container">
+        <div class="status-bar">
+            <span>🪙 الرصيد: 4,000,010</span>
+            <span>⚡ الطاقة: 100/100</span>
         </div>
-        
-        <div class="game-area">
-            <div class="fisher-avatar">🧑‍🌾</div>
-        </div>
-        
-        <div class="nav-bar">
-            <div class="nav-item">▶️<br>اللعب</div>
-            <div class="nav-item">📜<br>المهام</div>
-            <div class="nav-item">👥<br>الإحالة</div>
-            <div class="nav-item">🚀<br>الأيردروب</div>
+        <div class="fisher">🎣</div>
+        <div style="margin-top: 50px;">
+            <span class="fish" onclick="alert('تم الصيد!')">🐟</span>
+            <span class="fish" onclick="alert('تم الصيد!')">🦈</span>
+            <span class="fish" onclick="alert('تم الصيد!')">🐡</span>
         </div>
     </div>
 </body>
