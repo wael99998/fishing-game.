@@ -3,67 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Crypto Fisher Ultra</title>
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <title>Crypto Fisher - Pro Edition</title>
     <style>
-        body { margin: 0; padding: 0; background: #000; color: white; font-family: sans-serif; overflow: hidden; user-select: none; }
+        body { margin: 0; padding: 0; background-color: #050b16; color: #ffffff; font-family: 'Segoe UI', sans-serif; overflow: hidden; }
+        #app { width: 100vw; height: 100vh; display: flex; flex-direction: column; background: radial-gradient(circle at bottom, #0a2e3a, #020111); }
         
-        /* خلفية بحرية احترافية */
-        #game-bg { width: 100vw; height: 100vh; background: linear-gradient(to bottom, #051329, #0a2e3a); position: relative; }
+        /* Header UI */
+        .header { display: flex; justify-content: space-between; padding: 20px; }
+        .stat-card { background: rgba(255,255,255,0.1); padding: 10px 20px; border-radius: 20px; border: 1px solid #00d4ff; font-weight: bold; }
         
-        /* عناصر الواجهة */
-        .ui-top { position: absolute; top: 10px; width: 100%; display: flex; justify-content: space-between; padding: 10px; box-sizing: border-box; z-index: 20; }
-        .box { background: rgba(0,0,0,0.6); padding: 10px 20px; border-radius: 15px; border: 1px solid #00f2fe; font-size: 14px; font-weight: bold; display: flex; align-items: center; gap: 5px; }
+        /* Main Game Area */
+        .game-area { flex-grow: 1; position: relative; display: flex; justify-content: center; align-items: center; }
+        .fisher-avatar { font-size: 100px; margin-bottom: 50px; }
         
-        /* شخصية الصياد الرسمية */
-        #fisherman { position: absolute; top: 40px; left: 50%; transform: translateX(-50%); font-size: 80px; z-index: 15; }
-        
-        /* محرك الأسماك الواقعي (صور احترافية بدلاً من الإيموجي) */
-        .fish-sprite { position: absolute; width: 90px; height: 90px; cursor: pointer; transition: all 1s ease-out; filter: drop-shadow(0 0 5px rgba(255,255,255,0.3)); z-index: 10; }
-        
-        /* أمثلة لصور الأسماك الحقيقية */
-        #f1 { background: url('https://cdn-icons-png.flaticon.com/512/3069/3069176.png') no-repeat center/contain; top: 30%; left: 10%; animation: moveFish1 10s infinite linear; }
-        #f2 { background: url('https://cdn-icons-png.flaticon.com/512/2965/2965331.png') no-repeat center/contain; top: 60%; left: 60%; width: 120px; height: 120px; animation: moveFish2 8s infinite linear; }
-        #f3 { background: url('https://cdn-icons-png.flaticon.com/512/4725/4725911.png') no-repeat center/contain; top: 75%; left: 30%; animation: moveFish3 12s infinite linear; }
-
-        /* شريط سفلي احترافي */
-        #nav-bar { position: absolute; bottom: 0; width: 100%; height: 70px; background: rgba(0,0,0,0.8); display: flex; justify-content: space-around; align-items: center; border-top: 2px solid #333; z-index: 30; }
-        .nav-btn { color: white; text-decoration: none; font-size: 13px; font-weight: bold; display: flex; flex-direction: column; align-items: center; gap: 2px; }
-        .nav-btn.active { color: #00f2fe; }
-
-        /* حركة الأسماك الواقعية */
-        @keyframes moveFish1 { 0%, 100% { left: 10%; } 50% { left: 30%; } }
-        @keyframes moveFish2 { 0%, 100% { left: 60%; } 50% { left: 80%; } }
-        @keyframes moveFish3 { 0%, 100% { left: 30%; } 50% { left: 50%; } }
+        /* Footer Navigation */
+        .nav-bar { height: 80px; background: #0c1524; display: flex; justify-content: space-around; align-items: center; border-top: 1px solid #333; }
+        .nav-item { font-size: 12px; color: #aaa; text-align: center; }
     </style>
 </head>
 <body>
-
-<div id="game-bg">
-    <div class="ui-top">
-        <div class="box">🪙 الرصيد: <span id="score">4,000,010</span></div>
-        <div class="box">⚡ الطاقة: 100/100</div>
+    <div id="app">
+        <div class="header">
+            <div class="stat-card">🪙 الرصيد: 4,000,010</div>
+            <div class="stat-card">⚡ الطاقة: 100/100</div>
+        </div>
+        
+        <div class="game-area">
+            <div class="fisher-avatar">🧑‍🌾</div>
+        </div>
+        
+        <div class="nav-bar">
+            <div class="nav-item">▶️<br>اللعب</div>
+            <div class="nav-item">📜<br>المهام</div>
+            <div class="nav-item">👥<br>الإحالة</div>
+            <div class="nav-item">🚀<br>الأيردروب</div>
+        </div>
     </div>
-    
-    <div id="fisherman">🧑‍🌾</div>
-    
-    <div class="fish-sprite" id="f1"></div>
-    <div class="fish-sprite" id="f2"></div>
-    <div class="fish-sprite" id="f3"></div>
-    
-    <div id="nav-bar">
-        <a href="#" class="nav-btn active">▶️<br>اللعب</a>
-        <a href="#" class="nav-btn">📜<br>المهام</a>
-        <a href="#" class="nav-btn">👥<br>الإحالة</a>
-        <a href="#" class="nav-btn">🚀<br>الأيردروب</a>
-    </div>
-</div>
-
-<script>
-    // الآن بعد إنشاء المظهر الواقعي، ننتظر الـ API Token لتفعيل السيرفر
-    // تفعيل مكتبة تليجرام
-    let tg = window.Telegram.WebApp;
-    tg.ready();
-</script>
 </body>
 </html>
