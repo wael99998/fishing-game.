@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crypto Fisher - World Class</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <style>
+        body { margin: 0; background: #020111; color: white; font-family: sans-serif; text-align: center; overflow: hidden; user-select: none; }
+        #sea { position: relative; width: 100vw; height: 100vh; background: linear-gradient(to bottom, #051329, #0a2e3a); }
+        #fisherman { position: absolute; top: 10px; left: 50%; transform: translateX(-50%); font-size: 60px; z-index: 20; transition: left 0.1s; }
+        #rope { position: absolute; top: 70px; left: 50%; width: 2px; background: white; height: 0px; z-index: 9; transform-origin: top center; transition: height 0.1s linear; pointer-events: none; }
+        .spawn-item { position: absolute; font-size: 50px; cursor: pointer; z-index: 5; transition: all 0.5s; }
+        #ui { position: absolute; top: 10px; width: 100%; display: flex; justify-content: space-around; z-index: 30; }
+        .btn { background: #8a2be2; color: white; border: none; padding: 10px 20px; border-radius: 20px; font-weight: bold; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <div id="ui">
+        <div style="background: rgba(0,0,0,0.5); padding: 10px; border-radius: 15px;">🪙 الرصيد: <span id="score">0</span></div>
+        <button class="btn" onclick="alert('جاري الترقية للعملة الرقمية!')">🛒 المتجر</button>
+    </div>
+    
+    <div id="sea" onclick="dropHook(event)">
+        <div id="fisherman">🧑‍🌾</div>
+        <div id="rope"></div>
+        <div id="hook" style="position:absolute; font-size:40px; display:none;">🪝</div>
+    </div>
+
+<script>
+    let score = 0;
+    const scoreEl = document.getElementById('score');
+    const rope = document.getElementById('rope');
+    const fisherman = document.getElementById('fisherman');
+    let tg = window.Telegram.WebApp;
+    tg.ready();
+
+    function dropHook(event) {
+        const x = event.clientX;
+        const y = event.clientY;
+        
+        // تحريك الصياد
+        fisherman.style.left = x + 'px';
+        
+        // رسم الحبل
+        const rect = document.getElementById('sea').getBoundingClientRect();
+        rope.style.height = y + 'px';
+        rope.style.transform = `rotate(${Math.atan2(y, x - (window.innerWidth/2)) * (180/Math.PI) - 90}deg)`;
+        
+        score += 10;
+        scoreEl.innerText = score;
+
+        setTimeout(() => { rope.style.height = '0px'; }, 200);
+    }
+</script>
+</body>
+</html>
