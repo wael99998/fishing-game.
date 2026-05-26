@@ -3,70 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Crypto Fisher Pro</title>
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <title>Crypto Fisher - Global Edition</title>
     <style>
-        body { margin: 0; padding: 0; background-color: #001f3f; color: #ffffff; font-family: sans-serif; overflow: hidden; user-select: none; }
-        #app { width: 100vw; height: 100vh; background: radial-gradient(circle, #0a2e3a 0%, #020111 100%); position: relative; }
+        body { margin: 0; padding: 0; background: #000; color: white; font-family: sans-serif; overflow: hidden; }
+        /* الخلفية البحرية الفخمة */
+        .game-screen { 
+            width: 100vw; height: 100vh; 
+            background: url('https://img.freepik.com/premium-photo/underwater-background-with-coral-reef-fishes_930365-276.jpg') no-repeat center/cover;
+            position: relative;
+        }
+        /* الشريط العلوي */
+        .top-ui { position: absolute; top: 10px; width: 100%; display: flex; justify-content: space-between; padding: 15px; box-sizing: border-box; }
+        .box { background: rgba(0,0,0,0.7); padding: 10px 20px; border-radius: 20px; border: 1px solid #00d4ff; font-weight: bold; }
         
-        /* الهيدر العلوي - UI */
-        #header { position: absolute; top: 10px; width: 100%; display: flex; justify-content: space-between; padding: 0 15px; box-sizing: border-box; z-index: 20; }
-        .box { background: rgba(0,0,0,0.6); padding: 5px 15px; border-radius: 15px; border: 1px solid #00f2fe; }
-        .btn-shop { background: #8e44ad; color: white; border: none; padding: 5px 15px; border-radius: 15px; cursor: pointer; }
-
-        /* منطقة الصيد والأسماك */
-        #sea { width: 100%; height: 100%; position: relative; cursor: pointer; }
-        .fisher { position: absolute; top: 30px; left: 50%; transform: translateX(-50%); font-size: 80px; }
+        /* الأسماك الواقعية */
+        .fish-item { position: absolute; width: 120px; height: 120px; cursor: pointer; transition: 0.3s; }
         
-        /* الأسماك - صور حقيقية (Sprite) */
-        .fish-sprite { position: absolute; width: 80px; height: 80px; transition: all 1s ease-out; filter: drop-shadow(0 0 5px rgba(255,255,255,0.3)); }
-        
-        #f1 { background: url('https://cdn-icons-png.flaticon.com/512/3069/3069176.png') no-repeat center/contain; top: 30%; left: 10%; }
-        #f2 { background: url('https://cdn-icons-png.flaticon.com/512/2965/2965331.png') no-repeat center/contain; top: 60%; left: 60%; width: 120px; height: 120px; }
-        #f3 { background: url('https://cdn-icons-png.flaticon.com/512/4725/4725911.png') no-repeat center/contain; top: 75%; left: 30%; }
-
-        /* الشريط السفلي - Nav-bar */
-        #nav-bar { position: absolute; bottom: 0; width: 100%; height: 70px; background: rgba(0,0,0,0.9); display: flex; justify-content: space-around; align-items: center; border-top: 2px solid #333; z-index: 30; }
-        .nav-btn { text-align: center; color: #aaa; font-size: 12px; }
-        .active { color: #00f2fe; }
+        /* الفوتر السفلي */
+        .bottom-ui { position: absolute; bottom: 0; width: 100%; height: 70px; background: rgba(0,0,0,0.8); display: flex; justify-content: space-around; align-items: center; border-top: 2px solid #00d4ff; }
     </style>
 </head>
 <body>
 
-<div id="app">
-    <div id="header">
-        <button class="btn-shop">🛒 المتجر</button>
-        <div class="box">🪙 الرصيد: <span id="score">0</span></div>
+<div class="game-screen">
+    <div class="top-ui">
+        <div class="box">🪙 الرصيد: 4,000,000</div>
         <div class="box">⚡ الطاقة: 100/100</div>
     </div>
-    
-    <div id="sea" onclick="dropHook()">
-        <div class="fisher">🧑‍🌾</div>
-        <div class="fish-sprite" id="f1"></div>
-        <div class="fish-sprite" id="f2"></div>
-        <div class="fish-sprite" id="f3"></div>
-    </div>
-    
-    <div id="nav-bar">
-        <div class="nav-btn active">▶️<br>اللعب</div>
-        <div class="nav-btn">📜<br>المهام</div>
-        <div class="nav-btn">👥<br>الإحالة</div>
-        <div class="nav-btn">🚀<br>الأيردروب</div>
+
+    <img src="https://cdn-icons-png.flaticon.com/512/3069/3069176.png" class="fish-item" style="top:30%; left:10%;">
+    <img src="https://cdn-icons-png.flaticon.com/512/2965/2965331.png" class="fish-item" style="top:50%; left:60%;">
+
+    <div class="bottom-ui">
+        <div>▶️ اللعب</div>
+        <div>📜 المهام</div>
+        <div>👥 الإحالة</div>
+        <div>🚀 الأيردروب</div>
     </div>
 </div>
 
-<script>
-    // تفعيل مكتبة تليجرام
-    let tg = window.Telegram.WebApp;
-    tg.ready();
-    tg.expand();
-
-    // كود تفاعلي بسيط
-    let score = 0;
-    function dropHook() {
-        score += 10;
-        document.getElementById('score').innerText = score.toLocaleString();
-    }
-</script>
 </body>
 </html>
