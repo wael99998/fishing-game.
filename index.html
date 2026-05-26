@@ -3,42 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Crypto Fisher - Global Edition</title>
+    <title>Fisher Airdrop Pro</title>
     <style>
-        body { margin: 0; padding: 0; background: #000; color: white; font-family: sans-serif; overflow: hidden; }
-        /* الخلفية البحرية الفخمة */
-        .game-screen { 
-            width: 100vw; height: 100vh; 
-            background: url('https://img.freepik.com/premium-photo/underwater-background-with-coral-reef-fishes_930365-276.jpg') no-repeat center/cover;
-            position: relative;
+        body { margin: 0; padding: 0; background: #000; font-family: sans-serif; color: white; overflow: hidden; }
+        
+        /* الخلفية الواقعية */
+        #game-app {
+            width: 100vw; height: 100vh;
+            background: url('https://img.freepik.com/premium-photo/underwater-background-with-colorful-corals-fish_1048944-24586311.jpg') no-repeat center/cover;
+            position: relative; display: flex; flex-direction: column;
         }
-        /* الشريط العلوي */
-        .top-ui { position: absolute; top: 10px; width: 100%; display: flex; justify-content: space-between; padding: 15px; box-sizing: border-box; }
-        .box { background: rgba(0,0,0,0.7); padding: 10px 20px; border-radius: 20px; border: 1px solid #00d4ff; font-weight: bold; }
-        
-        /* الأسماك الواقعية */
-        .fish-item { position: absolute; width: 120px; height: 120px; cursor: pointer; transition: 0.3s; }
-        
-        /* الفوتر السفلي */
-        .bottom-ui { position: absolute; bottom: 0; width: 100%; height: 70px; background: rgba(0,0,0,0.8); display: flex; justify-content: space-around; align-items: center; border-top: 2px solid #00d4ff; }
+
+        /* شريط الرصيد والطاقة العلوي */
+        .header { width: 100%; display: flex; justify-content: space-between; padding: 15px; box-sizing: border-box; z-index: 10; }
+        .stat-box { background: rgba(0,0,0,0.6); padding: 8px 15px; border-radius: 20px; border: 1px solid #ffcc00; font-weight: bold; }
+
+        /* منطقة الصيد (القرش والأسماك) */
+        .fish-zone { flex-grow: 1; display: flex; justify-content: center; align-items: center; position: relative; }
+        .shark { width: 300px; position: absolute; bottom: 50px; }
+
+        /* الفوتر السفلي (القائمة) */
+        .footer { width: 100%; height: 70px; background: rgba(0,0,0,0.9); display: flex; justify-content: space-around; align-items: center; border-top: 1px solid #ffcc00; }
+        .nav-item { text-align: center; font-size: 12px; }
     </style>
 </head>
 <body>
 
-<div class="game-screen">
-    <div class="top-ui">
-        <div class="box">🪙 الرصيد: 4,000,000</div>
-        <div class="box">⚡ الطاقة: 100/100</div>
+<div id="game-app">
+    <div class="header">
+        <div class="stat-box">⚡ الطاقة: 100/100</div>
+        <div class="stat-box">🪙 الرصيد: 4,000,020</div>
     </div>
 
-    <img src="https://cdn-icons-png.flaticon.com/512/3069/3069176.png" class="fish-item" style="top:30%; left:10%;">
-    <img src="https://cdn-icons-png.flaticon.com/512/2965/2965331.png" class="fish-item" style="top:50%; left:60%;">
+    <div class="fish-zone">
+        <img src="https://img.freepik.com/premium-photo/great-white-shark-swimming-deep-blue-ocean_100236-478.jpg" class="shark" style="border-radius: 20px;">
+    </div>
 
-    <div class="bottom-ui">
-        <div>▶️ اللعب</div>
-        <div>📜 المهام</div>
-        <div>👥 الإحالة</div>
-        <div>🚀 الأيردروب</div>
+    <div class="footer">
+        <div class="nav-item">▶️<br>اللعب</div>
+        <div class="nav-item">📜<br>المهام</div>
+        <div class="nav-item">👥<br>الإحالة</div>
+        <div class="nav-item">🚀<br>الأيردروب</div>
     </div>
 </div>
 
